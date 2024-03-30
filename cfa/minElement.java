@@ -28,6 +28,14 @@ public class minElement {
       {
         return arr[mid];
       }
+      else if(arr[mid-1] > arr[mid])
+      {
+        end = mid - 1;
+      }
+      else {
+        start = mid+1;
+      }
     }
+    return -1;
   }
 }
