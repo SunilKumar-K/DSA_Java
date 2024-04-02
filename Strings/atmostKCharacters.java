@@ -10,7 +10,7 @@ public class atmostKCharacters {
     Scanner scanner = new Scanner(System.in);
     String s = scanner.nextLine();
 
-    System.out.println(atMostKCharacters(s, 2));
+    System.out.println(atMostKCharacters(s, 2)-atMostKCharacters(s, 1));
   }
 
   public static int atMostKCharacters(String s, int k)
@@ -22,29 +22,20 @@ public class atmostKCharacters {
         char ch = s.charAt(i);
         map.put(ch, map.getOrDefault(ch, 0)+1);
 
-        while(hasKCharacters(map))
+        while(map.size()>2)
         {
           char st = s.charAt(startChar);
           map.put(st, map.getOrDefault(st, 0)-1);
+          if(map.get(st) == 0)
+          {
+            map.remove(st);
+          }
           startChar++;
         }
 
-        maxLen = Math.max(maxLen, i-startChar+1);
+        maxLen += i-startChar+1;
     }
 
     return maxLen;
-  }
-
-  public static boolean hasKCharacters(Map<Character,Integer> map)
-  {
-    for(int count : map.values())
-    {
-      if(count > 2)
-      {
-        return true;
-      }
-    }
-
-    return true;
   }
 }
